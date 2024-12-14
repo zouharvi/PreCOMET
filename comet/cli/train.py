@@ -39,8 +39,11 @@ from pytorch_lightning.callbacks import (EarlyStopping, LearningRateMonitor,
                                          ModelCheckpoint)
 from pytorch_lightning.trainer.trainer import Trainer
 
-from comet.models import (RankingMetric, ReferencelessRegression,
-                          RegressionMetric, UnifiedMetric)
+from comet.models import (
+    RankingMetric, ReferencelessRegression,
+    RegressionMetric, UnifiedMetric,
+    HypothesislessRegression,
+)
 
 torch.set_float32_matmul_precision('high')
 
@@ -59,6 +62,9 @@ def read_arguments() -> ArgumentParser:
     parser.add_subclass_arguments(RegressionMetric, "regression_metric")
     parser.add_subclass_arguments(
         ReferencelessRegression, "referenceless_regression_metric"
+    )
+    parser.add_subclass_arguments(
+        HypothesislessRegression, "hypothesisless_regression_metric"
     )
     parser.add_subclass_arguments(RankingMetric, "ranking_metric")
     parser.add_subclass_arguments(UnifiedMetric, "unified_metric")
@@ -133,6 +139,25 @@ def initialize_model(configs):
         else:
             model = ReferencelessRegression(
                 **namespace_to_dict(configs.referenceless_regression_metric.init_args)
+            )
+    elif configs.hypothesisless_regression_metric is not None:
+        print(
+            json.dumps(
+                configs.hypothesisless_regression_metric.init_args,
+                indent=4,
+                default=lambda x: x.__dict__,
+            )
+        )
+        if configs.load_from_checkpoint is not None:
+            logger.info(f"Loading weights from {configs.load_from_checkpoint}.")
+            model = HypothesislessRegression.load_from_checkpoint(
+                checkpoint_path=configs.load_from_checkpoint,
+                strict=configs.strict_load,
+                **namespace_to_dict(configs.hypothesisless_regression_metric.init_args),
+            )
+        else:
+            model = HypothesislessRegression(
+                **namespace_to_dict(configs.hypothesisless_regression_metric.init_args)
             )
     elif configs.ranking_metric is not None:
         print(

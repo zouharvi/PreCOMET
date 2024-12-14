@@ -27,11 +27,13 @@ from .multitask.xcomet_metric import XCOMETMetric
 from .ranking.ranking_metric import RankingMetric
 from .regression.referenceless import ReferencelessRegression
 from .regression.regression_metric import RegressionMetric
+from .regression.hypothesisless import HypothesislessRegression
 from .download_utils import download_model_legacy
 
 
 str2model = {
     "referenceless_regression_metric": ReferencelessRegression,
+    "hypothesisless_regression_metric": HypothesislessRegression,
     "regression_metric": RegressionMetric,
     "ranking_metric": RankingMetric,
     "unified_metric": UnifiedMetric,
