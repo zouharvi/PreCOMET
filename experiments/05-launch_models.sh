@@ -40,6 +40,6 @@ function sbatch_gpu_big() {
         --wrap="$JOB_WRAP";
 }
 
-sbatch_gpu "firstrun_var" "comet-train --cfg configs/experimental/hypothesisless_model_var.yaml"
-sbatch_gpu "firstrun_avg" "comet-train --cfg configs/experimental/hypothesisless_model_avg.yaml"
+sbatch_gpu_big "firstrun_var" "comet-train --cfg configs/experimental/hypothesisless_model_var.yaml"
+sbatch_gpu_big "firstrun_avg" "comet-train --cfg configs/experimental/hypothesisless_model_avg.yaml"
 sbatch_gpu_big "firstrun_div" "comet-train --cfg configs/experimental/hypothesisless_model_div.yaml"
