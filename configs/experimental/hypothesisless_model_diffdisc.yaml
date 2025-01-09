@@ -17,9 +17,9 @@ hypothesisless_regression_metric:
     dropout: 0.1
     batch_size: 16
     train_data:
-      - data/csv/train_disc.csv
+      - data/csv/train_diffdisc.csv
     validation_data:
-      - data/csv/dev_disc.csv
+      - data/csv/dev_diffdisc.csv
     hidden_sizes:
       - 2048
       - 1024
