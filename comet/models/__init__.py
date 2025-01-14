@@ -29,7 +29,7 @@ from .regression.referenceless import ReferencelessRegression
 from .regression.regression_metric import RegressionMetric
 from .regression.hypothesisless import HypothesislessRegression
 from .download_utils import download_model_legacy
-
+import tqdm
 
 str2model = {
     "referenceless_regression_metric": ReferencelessRegression,
@@ -48,7 +48,7 @@ def download_model(
 ) -> str:
     try:
         model_path = snapshot_download(
-            repo_id=model, cache_dir=saving_directory, local_files_only=local_files_only
+            repo_id=model, cache_dir=saving_directory, local_files_only=local_files_only, tqdm_class=tqdm.tqdm
         )
     except Exception:
         try:
