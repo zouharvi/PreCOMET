@@ -107,7 +107,7 @@ with open("data/jsonl/all.jsonl", "w") as f:
     f.writelines([json.dumps(line, ensure_ascii=False) + "\n" for line in data])
 
 # we're removing only about 10 examples
-data_train = [x for x in data if x["year"] <= 2021 if len(x["src"]+x["tgt"]+x["ref"]) < 2500]
+data_train = [x for x in data if x["year"] <= 2022 if len(x["src"]+x["tgt"]+x["ref"]) < 2500]
 data_test = [x for x in data if x["year"] == 2023]
 
 data_train_by_langs = collections.defaultdict(list)
@@ -118,8 +118,8 @@ data_dev = []
 for lang in set(x["langs"] for x in data_test):
     if lang not in data_train_by_langs:
         continue
-    # 2k from each language
-    for _ in range(2000):
+    # 1k from each language
+    for _ in range(1000):
         data_dev.append(data_train_by_langs[lang].pop(RANDOM_DEV.randint(0, len(data_train_by_langs[lang])-1)))
 
 # flatten and shuffle

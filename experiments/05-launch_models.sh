@@ -40,10 +40,11 @@ function sbatch_gpu_big() {
         --wrap="$JOB_WRAP";
 }
 
-sbatch_gpu_big "firstrun_diffdisc" "comet-train --cfg configs/experimental/hypothesisless_model_diffdisc.yaml"
-sbatch_gpu_big "firstrun_diff" "comet-train --cfg configs/experimental/hypothesisless_model_diff.yaml"
-sbatch_gpu_big "firstrun_disc" "comet-train --cfg configs/experimental/hypothesisless_model_disc.yaml"
 
-sbatch_gpu_big "firstrun_var" "comet-train --cfg configs/experimental/hypothesisless_model_var.yaml"
-sbatch_gpu_big "firstrun_avg" "comet-train --cfg configs/experimental/hypothesisless_model_avg.yaml"
-sbatch_gpu_big "firstrun_div" "comet-train --cfg configs/experimental/hypothesisless_model_div.yaml"
+sbatch_gpu_big "nowmt23_diff" "comet-train --cfg configs/experimental/hypothesisless_model_diff.yaml"
+sbatch_gpu_big "nowmt23_disc" "comet-train --cfg configs/experimental/hypothesisless_model_disc.yaml"
+sbatch_gpu_big "nowmt23_pal" "comet-train --cfg configs/experimental/hypothesisless_model_pal.yaml"
+sbatch_gpu_big "nowmt23_var" "comet-train --cfg configs/experimental/hypothesisless_model_var.yaml"
+sbatch_gpu_big "nowmt23_avg" "comet-train --cfg configs/experimental/hypothesisless_model_avg.yaml"
+sbatch_gpu_big "nowmt23_div" "comet-train --cfg configs/experimental/hypothesisless_model_div.yaml"
+sbatch_gpu_big "nowmt23_diffdisc" "comet-train --cfg configs/experimental/hypothesisless_model_diffdisc.yaml"
