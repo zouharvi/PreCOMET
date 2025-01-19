@@ -9,10 +9,10 @@ import tqdm
 import multiprocessing
 metric_bleu = sacrebleu.metrics.BLEU(effective_order=True)
 
+# no need to explicitly exclude wmt23 because train.jsonl doesn't have it
 args = argparse.ArgumentParser()
 args.add_argument("data_in")
 args.add_argument("data_out")
-args.add_argument("--no-wmt23", action="store_true")
 args.add_argument("-m", "--method", choices=["avg", "var", "div"])
 args = args.parse_args()
 
@@ -21,9 +21,6 @@ args = args.parse_args()
 
 with open(args.data_in) as f:
     data = [json.loads(line) for line in f]
-
-if args.no_wmt23:
-    data = [x for x in data if x["year"] != 2023]
 
 # match based on the source
 src_to_tgts = collections.defaultdict(list)
@@ -70,13 +67,13 @@ with open(args.data_out, "w") as f:
 """
 python3 experiments/03-generate_comet_data.py data/jsonl/train.jsonl data/csv/train_var.csv --method var
 python3 experiments/03-generate_comet_data.py data/jsonl/test.jsonl data/csv/test_var.csv --method var
-python3 experiments/03-generate_comet_data.py data/jsonl/dev.jsonl data/csv/dev_var.csv --method var
+head -n 1000 data/csv/train_var.csv > data/csv/dev_var.csv
 
 python3 experiments/03-generate_comet_data.py data/jsonl/train.jsonl data/csv/train_avg.csv --method avg
 python3 experiments/03-generate_comet_data.py data/jsonl/test.jsonl data/csv/test_avg.csv --method avg
-python3 experiments/03-generate_comet_data.py data/jsonl/dev.jsonl data/csv/dev_avg.csv --method avg
+head -n 1000 data/csv/train_avg.csv > data/csv/dev_avg.csv
 
 python3 experiments/03-generate_comet_data.py data/jsonl/train.jsonl data/csv/train_div.csv --method div
 python3 experiments/03-generate_comet_data.py data/jsonl/test.jsonl data/csv/test_div.csv --method div
-python3 experiments/03-generate_comet_data.py data/jsonl/dev.jsonl data/csv/dev_div.csv --method div
+head -n 1000 data/csv/train_div.csv > data/csv/dev_div.csv
 """
