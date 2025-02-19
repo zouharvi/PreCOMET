@@ -3,8 +3,8 @@ import unittest
 import os
 import shutil
 from tests.data import DATA_PATH
-from comet import download_model
-from comet.models import load_from_checkpoint
+from precomet import download_model
+from precomet.models import load_from_checkpoint
 
 
 class TestDownloadModel(unittest.TestCase):

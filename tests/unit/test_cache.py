@@ -3,7 +3,7 @@ import unittest
 
 import torch
 
-from comet.models.lru_cache import tensor_lru_cache
+from precomet.models.lru_cache import tensor_lru_cache
 
 
 class TestLRUCache(unittest.TestCase):

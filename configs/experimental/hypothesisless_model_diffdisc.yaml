@@ -1,5 +1,5 @@
 hypothesisless_regression_metric:
-  class_path: comet.models.HypothesislessRegression
+  class_path: precomet.models.HypothesislessRegression
   init_args:
     nr_frozen_epochs: 0.3
     keep_embeddings_frozen: True

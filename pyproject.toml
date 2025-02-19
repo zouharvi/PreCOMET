@@ -1,17 +1,13 @@
 [tool.poetry]
-name = "unbabel-comet"
+name = "precomet"
 version = "2.2.4"
-description = "High-quality Machine Translation Evaluation"
-authors = ["Ricardo Rei, Craig Stewart, Catarina Farinha, Alon Lavie"]
+description = "PreCOMET version of COMET, forked from Unababel/COMET"
 license = "Apache-2.0"
 readme = "README.md"
-homepage = "https://github.com/Unbabel/COMET"
-repository = "https://github.com/Unbabel/COMET"
-documentation = "https://unbabel.github.io/COMET/html/index.html"
+repository = "https://github.com/zouharvi/subset2evaluate"
 keywords = [
     "Machine Translation", 
     "Evaluation",
-    "Unbabel",
     "COMET"
 ]
 classifiers = [
@@ -21,29 +17,28 @@ classifiers = [
     'Topic :: Scientific/Engineering :: Artificial Intelligence',
 ]
 packages = [
-    {include = "comet"},
+    {include = "precomet"},
 ]
 include = [
     "LICENSE",
     "pyproject.toml",
-    "CONTRIBUTING.md"
 ]
 
 [tool.poetry.scripts]
-comet-train = 'comet.cli.train:train_command'
-comet-score = 'comet.cli.score:score_command'
-comet-compare = 'comet.cli.compare:compare_command'
-comet-mbr = 'comet.cli.mbr:mbr_command'
+precomet-train = 'precomet.cli.train:train_command'
+precomet-score = 'precomet.cli.score:score_command'
+precomet-compare = 'precomet.cli.compare:compare_command'
+precomet-mbr = 'precomet.cli.mbr:mbr_command'
 
 [tool.poetry.dependencies]
 python = "^3.8.0"
 sentencepiece = "^0.2.0"
 pandas = ">=1.4.1"
-transformers = "^4.17"
+transformers = ">=4.49"
 pytorch-lightning = "^2.0.0"
 jsonargparse = "3.13.1"
 torch = ">=1.6.0"
-numpy = "^1.20.0"
+numpy = ">=2.0.0"
 torchmetrics = "^0.10.2"
 sacrebleu = "^2.0.0"
 scipy = "^1.5.4"

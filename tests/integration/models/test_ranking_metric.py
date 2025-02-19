@@ -5,7 +5,7 @@ import unittest
 import warnings
 
 import torch
-from comet.models import RankingMetric
+from precomet.models import RankingMetric
 from pytorch_lightning import seed_everything
 from pytorch_lightning.trainer.trainer import Trainer
 from scipy.stats import pearsonr

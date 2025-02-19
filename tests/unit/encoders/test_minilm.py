@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from comet.encoders.minilm import MiniLMEncoder
+from precomet.encoders.minilm import MiniLMEncoder
 
 
 class TestMiniLMEncoder(unittest.TestCase):

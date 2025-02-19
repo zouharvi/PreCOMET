@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from comet.encoders.bert import BERTEncoder
+from precomet.encoders.bert import BERTEncoder
 
 
 class TestBERTEncoder(unittest.TestCase):
