@@ -35,9 +35,11 @@ import warnings
 import torch
 from jsonargparse import ActionConfigFile, ArgumentParser, namespace_to_dict
 from pytorch_lightning import seed_everything
-from pytorch_lightning.callbacks import (EarlyStopping, LearningRateMonitor,
-                                         ModelCheckpoint)
+from pytorch_lightning.callbacks import EarlyStopping, LearningRateMonitor, ModelCheckpoint
 from pytorch_lightning.trainer.trainer import Trainer
+from pytorch_lightning.loggers import TensorBoardLogger
+
+
 
 from precomet.models import (
     RankingMetric, ReferencelessRegression,
@@ -84,7 +86,7 @@ def read_arguments() -> ArgumentParser:
     return parser
 
 
-def initialize_trainer(configs) -> Trainer:
+def initialize_trainer(configs, version=None) -> Trainer:
     checkpoint_callback = ModelCheckpoint(
         **namespace_to_dict(configs.model_checkpoint.init_args)
     )
@@ -94,6 +96,8 @@ def initialize_trainer(configs) -> Trainer:
     trainer_args = namespace_to_dict(configs.trainer.init_args)
     lr_monitor = LearningRateMonitor(logging_interval="step")
     trainer_args["callbacks"] = [early_stop_callback, checkpoint_callback, lr_monitor]
+    logger = TensorBoardLogger("", version=version)
+    trainer_args["logger"] = logger
     print("TRAINER ARGUMENTS: ")
     print(json.dumps(trainer_args, indent=4, default=lambda x: x.__dict__))
     trainer = Trainer(**trainer_args)
@@ -200,7 +204,7 @@ def train_command() -> None:
     cfg = parser.parse_args()
     seed_everything(cfg.seed_everything)
 
-    trainer = initialize_trainer(cfg)
+    trainer = initialize_trainer(cfg, version=str(cfg.cfg[0]).split("/")[-1].removesuffix(".yaml").removeprefix("hypothesisless_"))
     model = initialize_model(cfg)
     # Related to train/val_dataloaders:
     # 2 workers per gpu is enough! If set to the number of cpus on this machine
