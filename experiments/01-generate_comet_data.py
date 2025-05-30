@@ -44,7 +44,7 @@ for x, score in zip(data, scores):
         "score": score,
     })
 
-with open(f"data/csv/train_{args.method}.csv", "w") as f:
+with open(f"data/csv/{args.split}_{args.method}.csv", "w") as f:
     writer = csv.DictWriter(f, fieldnames=["src", "score"])
     writer.writeheader()
     writer.writerows(data_out)
@@ -52,7 +52,7 @@ with open(f"data/csv/train_{args.method}.csv", "w") as f:
 """
 for METHOD in "avg" "var" "div" "cons"; do
     echo $METHOD train;
-    python3 experiments/03-generate_comet_data.py train $METHOD;
+    python3 experiments/01-generate_comet_data.py train $METHOD;
 
     echo $METHOD dev;
     # take random 1000 from train but keep the header
@@ -60,6 +60,6 @@ for METHOD in "avg" "var" "div" "cons"; do
     shuf -n 1000 --random-source=data/csv/train_$METHOD.csv data/csv/train_$METHOD.csv >> data/csv/dev_$METHOD.csv;
 
     echo $METHOD test;
-    python3 experiments/03-generate_comet_data.py test $METHOD;
+    python3 experiments/01-generate_comet_data.py test $METHOD;
 done;
 """
