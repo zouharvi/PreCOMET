@@ -9,7 +9,7 @@ args.add_argument("method", choices=["avg", "var", "div", "cons"])
 args = args.parse_args()
 
 data_test = subset2evaluate.utils.load_data_wmt_test().keys()
-data = subset2evaluate.utils.load_data_wmt_all(min_items=100)
+data = subset2evaluate.utils.load_data_wmt_all(min_items=100, normalize=False)
 
 def get_scores(data):
     if args.method == "avg":
